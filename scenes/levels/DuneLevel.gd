@@ -2,7 +2,7 @@ extends Node2D
 
 
 onready var follow_camera = $FollowCamera
-onready var player = $Player
+onready var player = $Entities/Player
 
 
 func _ready():

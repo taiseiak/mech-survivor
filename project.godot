@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "HealthComponent",
+"language": "GDScript",
+"path": "res://scenes/components/HealthComponent.gd"
+}, {
+"base": "Area2D",
+"class": "HurtBoxComponent",
+"language": "GDScript",
+"path": "res://scenes/components/HurtBoxComponent.gd"
+} ]
+_global_script_class_icons={
+"HealthComponent": "",
+"HurtBoxComponent": ""
+}
+
 [application]
 
 config/name="mech_survivor"
