@@ -1,10 +1,12 @@
 extends Node2D
 
 
-signal missles_ready
+signal missiles_ready
 
 export(PackedScene) var missile_scene
 export var missile_count: int = 1 setget _set_missile_count
+
+var ready := true
 
 var _launch_positions: Array
 
@@ -14,7 +16,9 @@ func _ready():
 	cooldown_timer.connect("timeout", self, "_on_cooldown_timer_timeout")
 
 
-func launch(target: Node2D):
+func launch(targets: Array):
+	ready = false
+
 	if cooldown_timer.time_left > 0:
 		return
 
@@ -22,9 +26,11 @@ func launch(target: Node2D):
 	if entities == null:
 		return
 
-	for i in missile_count:
+	for target in targets:
 		var missile = missile_scene.instance()
 		call_deferred("_set_up_missile", entities, missile, target)
+
+	cooldown_timer.start()
 
 
 func _set_up_missile(entities, missile, target):
@@ -43,4 +49,5 @@ func _set_missile_count(new_value: int):
 
 
 func _on_cooldown_timer_timeout():
-	emit_signal("missles_ready")
+	ready = true
+	emit_signal("missiles_ready")

@@ -33,6 +33,5 @@ func _on_timer_timeout():
 	# 256 is viewport size
 	var spawn_location = Vector2.RIGHT * 300
 	spawn_location = spawn_location.rotated(deg2rad(rand_range(-360, 360)))
-	print(spawn_location)
 	spawn_location += player.global_position
 	enemy.global_position = spawn_location
