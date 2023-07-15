@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/UI/HUD/EnergyBar.gd" type="Script" id=1]
+
+[node name="EnergyBar" type="ProgressBar"]
+margin_right = 256.0
+margin_bottom = 2.0
+percent_visible = false
+script = ExtResource( 1 )

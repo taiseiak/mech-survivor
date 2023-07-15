@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 
+signal player_died
+
 export(NodePath) var mouse_position_capturer_path
 
 onready var scanner_component = $ScannerComponent
@@ -16,7 +18,7 @@ func _ready():
 	scanner_component.connect("area_entered", self, "_on_scanner_area_entered")
 	missile_launcher.connect("missiles_ready", self, "_on_missile_launcher_missiles_ready")
 	health_component.connect("health_depleted", self, "_on_health_component_health_depleted")
-	$HealthPrintTimer.connect("timeout", self, "_on_health_print_timer_timeout")
+	health_component.connect("health_changed", self, "_on_health_component_health_changed")
 
 
 func _process(delta):
@@ -53,8 +55,8 @@ func _on_missile_launcher_missiles_ready():
 
 
 func _on_health_component_health_depleted():
-	get_tree().quit()
+	emit_signal("player_died")
 
 
-func _on_health_print_timer_timeout():
-	print(health_component.current_health)
+func _on_health_component_health_changed():
+	EventBus.emit_signal("player_health_changed", health_component.current_health)

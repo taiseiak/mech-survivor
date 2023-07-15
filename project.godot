@@ -39,6 +39,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://autoloads/Globals.gd"
+EventBus="*res://autoloads/EventBus.gd"
 
 [debug]
 

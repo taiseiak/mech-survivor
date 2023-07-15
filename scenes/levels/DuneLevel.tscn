@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/levels/DuneLevel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/game_objects/Player/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/game_objects/MousePositionCapturer/MousePositionCapturer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/game_objects/enemies/RatEnemy/RatEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/game_objects/enemies/EnemySpawner/EnemySpawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/UI/HUD/EnergyBar.tscn" type="PackedScene" id=7]
 
 [node name="DuneLevel" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,14 +33,13 @@ tile_data = PoolIntArray( 65523, 0, 1, 65524, 0, 1, 65525, 0, 1, 65526, 0, 1, 65
 position = Vector2( 210, 134 )
 mouse_position_capturer_path = NodePath("../../MousePositionCapturer")
 
-[node name="RatEnemy" parent="Entities" instance=ExtResource( 5 )]
-position = Vector2( 351, 152 )
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="RatEnemy2" parent="Entities" instance=ExtResource( 5 )]
-position = Vector2( 184, 231 )
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="RatEnemy3" parent="Entities" instance=ExtResource( 5 )]
-position = Vector2( 72, 65 )
-
-[node name="RatEnemy4" parent="Entities" instance=ExtResource( 5 )]
-position = Vector2( 304, 46 )
+[node name="EnergyBar" parent="HUD/MarginContainer" instance=ExtResource( 7 )]
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
