@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "HurtBoxComponent",
 "language": "GDScript",
 "path": "res://scenes/components/HurtBoxComponent.gd"
+}, {
+"base": "Reference",
+"class": "WeightedTable",
+"language": "GDScript",
+"path": "res://scenes/classes/weighted_table.gd"
 } ]
 _global_script_class_icons={
 "HealthComponent": "",
-"HurtBoxComponent": ""
+"HurtBoxComponent": "",
+"WeightedTable": ""
 }
 
 [application]

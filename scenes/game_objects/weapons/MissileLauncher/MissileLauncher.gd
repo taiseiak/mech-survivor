@@ -18,15 +18,13 @@ func launch(target: Node2D):
 	if cooldown_timer.time_left > 0:
 		return
 
-	var entities = get_tree().get_nodes_in_group("entities")
-	if entities.size() != 1:
+	var entities = Globals.get_entity_node()
+	if entities == null:
 		return
 
-	entities = entities[0] as Node2D
 	for i in missile_count:
 		var missile = missile_scene.instance()
 		call_deferred("_set_up_missile", entities, missile, target)
-
 
 
 func _set_up_missile(entities, missile, target):
