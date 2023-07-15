@@ -22,17 +22,16 @@ func _process(delta):
 	look_at(global_position + _velocity)
 
 	var target_pos
-	if target == null or not target.is_inside_tree():
-		target_pos = _direction
-	else:
+
+	if target != null and is_instance_valid(target):
 		target_pos = target.global_position
+	else:
+		target_pos = _direction
+
 
 	_direction = global_position.direction_to(target_pos)
 	var desired_velocity = _direction * max_flight_speed
 	_velocity = _velocity.linear_interpolate(desired_velocity, 1 - exp(-acceleration * delta))
-
-
-func _physics_process(delta):
 	position += _velocity
 
 

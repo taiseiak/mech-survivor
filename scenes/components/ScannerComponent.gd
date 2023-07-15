@@ -22,15 +22,15 @@ func _process(delta):
 	# Move towards desired position with fixed speed
 	var vector_to_desired_position = desired_position - global_position
 	var velocity = _get_velocity_to_position(desired_position)
-	if (global_position - center_node.global_position).length_squared() >= _max_length_from_center_squared and\
-			(desired_position - center_node.global_position).length_squared() >= _max_length_from_center_squared:
-		var direction_to_desired_position = (desired_position - center_node.global_position).normalized()
+	if (global_position - center_node.global_position).length() >= max_length_from_center and\
+			(desired_position - center_node.global_position).length() >= max_length_from_center:
+		var direction_to_desired_position = desired_position.direction_to(center_node.global_position)
 		var new_desired_position = center_node.global_position + direction_to_desired_position\
 				* max_length_from_center
 		vector_to_desired_position = new_desired_position - global_position
 		velocity = _get_velocity_to_position(new_desired_position)
 
-	if (global_position - center_node.global_position).length_squared() >= _max_length_from_center_squared - 10:
+	if (global_position - center_node.global_position).length() >= max_length_from_center - 3:
 		if max_line.points.size() > 1:
 			max_line.remove_point(1)
 		max_line.add_point(center_node.global_position - global_position)
