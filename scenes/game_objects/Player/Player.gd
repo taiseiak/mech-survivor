@@ -16,6 +16,7 @@ func _ready():
 	scanner_component.connect("area_entered", self, "_on_scanner_area_entered")
 	missile_launcher.connect("missiles_ready", self, "_on_missile_launcher_missiles_ready")
 	health_component.connect("health_depleted", self, "_on_health_component_health_depleted")
+	$HealthPrintTimer.connect("timeout", self, "_on_health_print_timer_timeout")
 
 
 func _process(delta):
@@ -53,3 +54,7 @@ func _on_missile_launcher_missiles_ready():
 
 func _on_health_component_health_depleted():
 	get_tree().quit()
+
+
+func _on_health_print_timer_timeout():
+	print(health_component.current_health)
