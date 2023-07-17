@@ -7,6 +7,9 @@ export var acceleration: float = 1
 var player: Node2D
 var velocity: Vector2 = Vector2.ZERO
 
+var _energy_drop_scene = preload("res://scenes/components/EnergyDropComponent.tscn")
+
+
 
 func _ready():
 	player = Globals.get_player_node()

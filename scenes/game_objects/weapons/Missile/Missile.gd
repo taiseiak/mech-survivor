@@ -1,36 +1,22 @@
 extends Node2D
 
 
-export var max_flight_speed: float = 3
-export var acceleration: float = 1
-export var max_flight_time: float = 3
-
-var target: Node2D
-
-var _velocity: Vector2
-var _direction: Vector2 = Vector2.RIGHT
+var target: Node2D setget _set_target
 
 onready var hit_box_component = $HitBoxComponent
-onready var flight_timer = $FlightTimer
+onready var flight_component = $FlightComponent
 
 
 func _ready():
-	_velocity = Vector2.ZERO
+	flight_component.connect("flight_timed_out", self, "_on_flight_timed_out")
 	hit_box_component.connect("area_entered", self, "_on_hit_box_area_entered")
-	flight_timer.connect("timeout", self, "_on_flight_timer_timeout")
-	flight_timer.wait_time = max_flight_time
-	flight_timer.start()
+	if target != null:
+		flight_component.target = target
 
 
-func _process(delta):
-	look_at(global_position + _velocity)
-
-	if target != null and is_instance_valid(target):
-		_direction = global_position.direction_to(target.global_position)
-
-	var desired_velocity = _direction * max_flight_speed
-	_velocity = _velocity.linear_interpolate(desired_velocity, 1 - exp(-acceleration * delta))
-	position += _velocity
+func _set_target(new_value):
+	target = new_value
+	flight_component.target = new_value
 
 
 func _on_hit_box_area_entered(area: Area2D):
@@ -40,6 +26,6 @@ func _on_hit_box_area_entered(area: Area2D):
 			$AnimationPlayer.play("explode")
 
 
-func _on_flight_timer_timeout():
+func _on_flight_timed_out():
 	if not $AnimationPlayer.is_playing():
 		$AnimationPlayer.play("explode")

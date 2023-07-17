@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/levels/DuneLevel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/game_objects/Player/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/game_objects/enemies/RatEnemy/RatEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/game_objects/enemies/EnemySpawner/EnemySpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/UI/HUD/EnergyBar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/UI/HUD/ExcessEnergyBar.tscn" type="PackedScene" id=8]
 
 [node name="DuneLevel" type="Node2D"]
 script = ExtResource( 1 )
@@ -40,6 +41,17 @@ layer = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="EnergyBar" parent="HUD/MarginContainer" instance=ExtResource( 7 )]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer"]
+margin_right = 256.0
+margin_bottom = 256.0
+
+[node name="EnergyBar" parent="HUD/MarginContainer/VBoxContainer" instance=ExtResource( 7 )]
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
+
+[node name="ExcessEnergyBar" parent="HUD/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 24.0
+margin_right = 256.0
+margin_bottom = 44.0
