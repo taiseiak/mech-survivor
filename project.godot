@@ -63,6 +63,7 @@ window/stretch/aspect="expand"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+theme/custom="res://resources/Theme/default_theme.tres"
 
 [importer_defaults]
 
@@ -113,3 +114,4 @@ quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false
