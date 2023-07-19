@@ -15,3 +15,10 @@ func get_entity_node() -> Node2D:
 	if entities.size() != 1:
 		return null
 	return entities[0]
+
+
+func get_ui_node() -> Node2D:
+	var ui = get_tree().get_nodes_in_group("ui")
+	if ui.size() != 1:
+		return null
+	return ui[0]

@@ -3,7 +3,7 @@ class_name Player
 
 
 signal player_died
-signal excess_reached
+signal leveled_up(level)
 signal energy_added
 
 export(NodePath) var mouse_position_capturer_path
@@ -16,6 +16,7 @@ onready var health_component = $HealthComponent as HealthComponent
 var direction = Vector2.ZERO
 var excess_energy: float = 0
 var next_level_up: float = 100
+var current_level: int = 1
 
 
 func _ready():
@@ -53,7 +54,8 @@ func level_up():
 	var energy_for_next_level = excess_energy - next_level_up
 	next_level_up *= 2
 	excess_energy = energy_for_next_level
-	emit_signal("excess_reached")
+	current_level += 1
+	emit_signal("leveled_up", current_level)
 
 
 func _launch_missiles():

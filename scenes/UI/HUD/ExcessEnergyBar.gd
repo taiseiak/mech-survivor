@@ -11,11 +11,11 @@ func _ready():
 	max_value = player.next_level_up
 	value = player.excess_energy
 
-	player.connect("excess_reached", self, "_on_player_excess_reached")
+	player.connect("leveled_up", self, "_on_player_leveled_up")
 	player.connect("energy_added", self, "_on_player_energy_added")
 
 
-func _on_player_excess_reached():
+func _on_player_leveled_up(level):
 	max_value = player.next_level_up
 	value = player.excess_energy
 
