@@ -11,4 +11,5 @@ func _ready():
 
 
 func _on_health_component_health_depleted():
+	EventBus.emit_signal("entity_died", owner)
 	owner.queue_free()

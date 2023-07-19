@@ -10,7 +10,6 @@ func _ready():
 	if player == null:
 		return
 	player.connect("leveled_up", self, "_on_player_leveled_up")
-	player.excess_energy += 90
 
 
 func _on_player_leveled_up(current_level):

@@ -26,9 +26,9 @@ func launch(targets: Array):
 	if entities == null:
 		return
 
-	for target in targets:
+	for i in range(missile_count):
 		var missile = missile_scene.instance()
-		call_deferred("_set_up_missile", entities, missile, target)
+		call_deferred("_set_up_missile", entities, missile, targets[i % targets.size()]["target"])
 
 	cooldown_timer.start()
 
@@ -40,8 +40,7 @@ func _set_up_missile(entities, missile, target):
 
 
 func _set_missile_count(new_value: int):
-	missile_count = new_value
-	var center_position
+	missile_count = int(min(new_value, 32))
 #	if new_value % 2 == 1:
 #		center_position = Vector2(ciel(new_value / 2), 0)
 #	else:

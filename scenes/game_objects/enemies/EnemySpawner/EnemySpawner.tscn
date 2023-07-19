@@ -5,6 +5,9 @@
 [node name="EnemySpawner" type="Node"]
 script = ExtResource( 1 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="UpgradeTimer" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true

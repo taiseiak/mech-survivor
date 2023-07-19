@@ -15,8 +15,9 @@ onready var health_component = $HealthComponent as HealthComponent
 
 var direction = Vector2.ZERO
 var excess_energy: float = 0
-var next_level_up: float = 100
+var next_level_up: float = 10
 var current_level: int = 1
+var targets: Array = []
 
 
 func _ready():
@@ -25,6 +26,7 @@ func _ready():
 	missile_launcher.connect("missiles_ready", self, "_on_missile_launcher_missiles_ready")
 	health_component.connect("health_depleted", self, "_on_health_component_health_depleted")
 	health_component.connect("health_changed", self, "_on_health_component_health_changed")
+	EventBus.connect("upgrade_chosen", self, "_on_upgrade_chosen")
 
 
 func _process(delta):
@@ -35,7 +37,7 @@ func _process(delta):
 	direction = Vector2(horizontal_action_strength, vertical_action_strength).normalized()
 	var velocity = direction * 50
 	if velocity.length_squared()> 0:
-		health_component.current_health -= 5 * delta
+		health_component.current_health -= 2 * delta
 	move_and_slide(velocity)
 
 
@@ -59,13 +61,26 @@ func level_up():
 
 
 func _launch_missiles():
-	var overlapping_areas = scanner_component.get_overlapping_areas()
-	var targets = []
-	for area in overlapping_areas:
-		if area is HurtBoxComponent:
-			targets.append(area)
+	_set_targets()
 	if targets.size() > 0:
 		missile_launcher.launch(targets)
+
+
+func _set_targets():
+	targets = []
+	var overlapping_areas = scanner_component.get_overlapping_areas()
+	for area in overlapping_areas:
+		if area is HurtBoxComponent:
+			# Super inefficient, but oh well.
+			var length_to_area = area.global_position.distance_squared_to(global_position)
+			if targets.size() == 0:
+				targets.append({"target": area.owner, "length": length_to_area})
+			else:
+				for i in range(targets.size()):
+					var target = targets[i]
+					if target["length"] > length_to_area:
+						targets.insert(i, {"target": area.owner, "length": length_to_area})
+						break
 
 
 func _on_mouse_position_changed(mouse_position: Vector2):
@@ -91,3 +106,7 @@ func _on_health_component_health_changed():
 
 func _temp_energy_timeout():
 	add_energy(10)
+
+
+func _on_upgrade_chosen(upgrade):
+	missile_launcher.missile_count *= 2
